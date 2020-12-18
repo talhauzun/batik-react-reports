@@ -1,40 +1,45 @@
-import React, { useReducer } from "react";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import LoginForm from './components/LoginForm';
-import Home from './components/Home';
-import PrivateRoute from './components/PrivateRoute';
-import About from './components/About';
-import NavigationBar from './components/NavigationBar';
+import React, { useState, useReducer, useEffect } from "react";
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import Login from "./components/Login";
+import { Home } from "./components/Home";
 
-import authReducer from "./reducers/authReducer";
-
-export const CounterContext = React.createContext(null)
+import { MasterPage } from "./components/MasterPage";
+import {PrivateRoute} from "./helpers/ProtectedRoute";
+import { CheckUser } from "./helpers/CheckUser";
 
 
 
-const App = (props) => {
-  const initialState = {
-    user: '',
-    isAuthenticated: false,
-    error: false,
-    errorMessage: '',
-  }
-  const [state, dispatch] = useReducer(authReducer, initialState)
-  
+
+export const App = () => {
+  const test =  CheckUser()
   return (
-    <CounterContext.Provider value={{authState:state,authDispatch:dispatch}}>
-    <Router>
-      <div>
-      <NavigationBar />
+    <div>
+      <nav className="navbar navbar-expand navbar-dark bg-dark">
+        <a href="/tutorials" className="navbar-brand">
+          bezKoder 
+        </a>
+        <div className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <Link to={"/tutorials"} className="nav-link">
+              Tutorials
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to={"/add"} className="nav-link">
+              Add {test}
+            </Link>
+          </li>
+        </div>
+      </nav>
+
+      <div className="container mt-3">
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/account/login" component={LoginForm} />
-          <PrivateRoute path="/about" component={About} />
+          <PrivateRoute exact path="/Home" roles="Home" component={Home} />  
+          <PrivateRoute exact path="/MasterPage" roles="MasterPage" component={MasterPage} />          
+          <PrivateRoute exact path="/Login" roles="Login" component={Login} />  
+          <Route roles="Login" component={Login} />
         </Switch>
       </div>
-    </Router>
-    </CounterContext.Provider>
-  );
+    </div>
+  )
 }
-
-export default App;

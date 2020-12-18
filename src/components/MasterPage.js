@@ -1,9 +1,9 @@
 import React from 'react'
 
-export const Home = () => {
+export const MasterPage = () => {
     return (
         <div>
-            Home
+            Master Page
         </div>
     )
 }
