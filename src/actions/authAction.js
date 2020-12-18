@@ -1,8 +1,10 @@
+import React,{ useContext } from "react";
 import authService from '../services/authService';
-
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_ERROR = "LOGIN_ERROR";
 export const LOGOUT = "LOGOUT";
+
+
 
 const loginSuccess = user => {
     return {
@@ -18,21 +20,21 @@ const loginError = error => {
     };
 };
 
-export const login = (username, password) => {
-    return dispatch => {
+const login = (context,username, password) => {
+    
+        console.log("test")
         authService.login(username, password)
             .then(data => {
                 data.message
-                    ? dispatch(loginError(data.message))
-                    : (dispatch(loginSuccess(data)))
+                    ? context.authDispatch(loginError(data.message))
+                    : (context.authDispatch(loginSuccess(data)))
             })
-            .catch(err => dispatch(loginError(err)));
-    }
-}
+            .catch(err => context.authDispatch(loginError(err)));
+        }
  const logout = () => {
     authService.logout();
     return {
         type: LOGOUT
     };
 }
-export {loginSuccess,loginError,logout}
+export {loginSuccess,loginError,logout,login}

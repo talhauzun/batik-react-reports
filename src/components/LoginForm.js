@@ -1,27 +1,21 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { CounterContext } from "../App";
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from "mdbreact";
+import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdbreact";
 
-import { loginSuccess,loginError } from "../actions/authAction";
-import { axiosBase } from "../helpers/defaultUrl";
-import authService from '../services/authService';
+import {login } from "../actions/authAction";
 
 const FormPage = () => {
   const context = useContext(CounterContext);
 
   const { register, handleSubmit, watch, errors } = useForm();
+
   //const onSubmit = data => console.log(data);
   const onSubmit = data => {
+
     //context.authDispatch(login(data.username, data.password));
-    authService.login(data.username, data.password)
-    .then(data => {
-        data.message
-            ? context.authDispatch(loginError(data.message))
-            : (context.authDispatch(loginSuccess(data)))
-    })
-    .catch(err => context.authDispatch(loginError(err)));
-    console.log();
+    login(context,data.username, data.password)
+    console.log(data);
   }
   //console.log(watch("example")); // watch input value by passing the name of it
 

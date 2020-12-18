@@ -11,7 +11,6 @@ const login = (username, password) => {
         "UserPass": password
       })
         .then(user => {
-            //eğer kullanıcı bulunursa (user.data.status = true) 
                 const { token } = user.data;
                 localStorage.setItem("jwtToken", token);
                 setAuthorizationToken(token);
@@ -25,7 +24,8 @@ const logout = () => {
     localStorage.removeItem("jwtToken");
     setAuthorizationToken(false);
 }
-const kontrolUser = () => {
+
+const checkUser = () => {
     let token=localStorage.getItem("jwtToken");
    
     if (token!=null) {
@@ -38,4 +38,4 @@ const kontrolUser = () => {
     return ""
 }
 
-export default { login, logout };
+export default { login, logout,checkUser };
