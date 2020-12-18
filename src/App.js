@@ -29,13 +29,18 @@ export const App = () => {
           </a>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
-              <Link to={"/tutorials"} className="nav-link">
-                Tutorials
+              <Link to={"/Home"} className="nav-link">
+                Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link to={"/add"} className="nav-link">
-                Add
+              <Link to={"/MasterPage"} className="nav-link">
+                Master
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/Login"} className="nav-link">
+                Login
               </Link>
             </li>
           </div>
@@ -44,24 +49,27 @@ export const App = () => {
         <div className="container mt-3">
           <Switch>
             <PrivateRoute
-              path="/Home"
+              path="/Login"
               isAuth={user.isAuth}
-              roles="Home"
-              component={Home}
+              pageAuthority={true}
+              roles="Login"
+              component={Login}
             />
             <PrivateRoute
               path="/MasterPage"
               isAuth={user.isAuth}
+              pageAuthority={user.role.indexOf("MasterPage")>0}
               roles="MasterPage"
               component={MasterPage}
             />
             <PrivateRoute
-              path="/Login"
+              path="/Home"
               isAuth={user.isAuth}
-              roles="Login"
-              component={Login}
+              pageAuthority={true}
+              roles="Home"
+              component={Home}
             />
-            <PrivateRoute isAuth={user.isAuth} roles="404" component={Home} />
+            <PrivateRoute path=""  pageAuthority={true} isAuth={user.isAuth} roles="404" component={Home} />
           </Switch>
         </div>
       </div>

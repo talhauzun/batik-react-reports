@@ -3,13 +3,10 @@ import ApiService from "../services/ApiService";
 import jwt_decode from "jwt-decode";
 
 import { UserContext } from "../App";
+import { useHistory,Redirect } from "react-router-dom";
 
-const Login = () => {
-
-    
-    const context = useContext(UserContext)
-    
-   
+import { history } from '../helpers/history';
+const Login = (props) => {
 
     const initialTutorialState = {
         username: "",
@@ -42,19 +39,22 @@ const Login = () => {
                 console.log(decodedHeader);
                 localStorage.setItem('token', response.data);
                 localStorage.setItem('testObject', JSON.stringify(decodedHeader));
+               
+                window.location.reload();
+               
             })
             .catch(e => {
                 console.log(e);
                 //setLoading(false);
             });
+            
     };
-
+    
     return (
         <div className="submit-form">
             {loading ? (
                 <div>
                     <h4>Başarılı şekilde giriş yapıldı</h4>
-                    <h4>{user.token}</h4>
                 </div>
             ) : (
                     <div>

@@ -5,16 +5,16 @@ import {App} from "./App";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
+import { history } from './helpers/history';
 
-import { BrowserRouter } from "react-router-dom";
-
+import { Router, Route, Link } from 'react-router-dom';
 
 
 ReactDOM.render(
   <React.StrictMode>
-      <BrowserRouter>
+      <Router history={history}>
         <App />
-      </BrowserRouter>,
+      </Router>,
   </React.StrictMode>,
   document.getElementById("root")
 );
