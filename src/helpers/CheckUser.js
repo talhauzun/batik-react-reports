@@ -3,26 +3,34 @@ import React,{useState,useEffect} from 'react'
 import jwt_decode from "jwt-decode";
 
 export const CheckUser = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [user, setUser] = useState({
+      UserName:"",
+      FullName:"",
+      Token:"",
+      role:[],
+      isAuth:false
+    });
 
     useEffect(() => {
         try {
           let token = localStorage.getItem("token")
           let jwt = jwt_decode(token)
-      
+          let a=JSON.parse(jwt.unique_name);
+
           const now = Date.now().valueOf() / 1000
           if (jwt.exp > now) {
-              setIsAuthenticated(true)
-              console.log("geçti")
-              console.log(jwt.exp)
+              setUser({...user,
+                FullName:a.FullName,
+                UserName:a.UserName,
+                Token:a.Token,
+                role:jwt.role,
+                isAuth:true
+              })   
           }
-        
-          console.log(jwt)
         } catch (error) {
           console.log("geçemedi")
-          setIsAuthenticated(false)
         }
-      })
+      },[setUser])
 
-    return isAuthenticated
+    return user
 }

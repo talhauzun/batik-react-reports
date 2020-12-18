@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState ,useContext, useEffect} from "react";
 import ApiService from "../services/ApiService";
 import jwt_decode from "jwt-decode";
+
+import { UserContext } from "../App";
 
 const Login = () => {
 
     
+    const context = useContext(UserContext)
     
+   
+
     const initialTutorialState = {
         username: "",
         password: "",
@@ -80,7 +85,7 @@ const Login = () => {
                         </div>
 
                         <button onClick={saveTutorial} className="btn btn-success">
-                                Giriş
+                                Giriş 
                         </button>
                     </div>
                 )}
