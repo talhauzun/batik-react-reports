@@ -6,6 +6,7 @@ import { UserContext } from "../App";
 import { useHistory,Redirect } from "react-router-dom";
 
 import { history } from '../helpers/history';
+import "./Login.css";
 const Login = (props) => {
 
     const initialTutorialState = {
@@ -51,45 +52,27 @@ const Login = (props) => {
     };
     
     return (
-        <div className="submit-form">
-            {loading ? (
-                <div>
-                    <h4>Başarılı şekilde giriş yapıldı</h4>
-                </div>
-            ) : (
-                    <div>
-                        <div className="form-group">
-                            <label htmlFor="title">Title</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="username"
-                                required
-                                value={user.username}
+        <div className="container login-container">
+       
+            <div className="col-md-6 login-form-2">
+                <h3>Arma Report</h3>
+                <form>
+                    <div className="form-group">
+                        <input type="text" className="form-control" placeholder="Your Email *"   value={user.username}
                                 onChange={handleInputChange}
-                                name="username"
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="description">Description</label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                id="password"
-                                required
-                                value={user.password}
-                                onChange={handleInputChange}
-                                name="password"
-                            />
-                        </div>
-
-                        <button onClick={saveTutorial} className="btn btn-success">
-                                Giriş 
-                        </button>
+                                name="username"/>
                     </div>
-                )}
-        </div>
+                    <div className="form-group">
+                        <input type="password" className="form-control"  value={user.password}
+                                onChange={handleInputChange} name="password"  placeholder="Your Password *"  />
+                    </div>
+                    <div className="form-group">
+                        <input onClick={saveTutorial} className="btnSubmit" value="Login" />
+                    </div>
+                 
+                </form>
+            </div>
+    </div>
     );
 };
 
