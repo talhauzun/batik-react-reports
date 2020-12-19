@@ -5,8 +5,8 @@ const login = data => {
 };
 
 
-const getAll = () => {
-  return http.get("/tutorials");
+const getSalesReportList = data => {
+  return http.post("/SiparisListesi/SalesReportList",data);
 };
 
 const get = id => {
@@ -30,7 +30,7 @@ const findByTitle = title => {
 };
 
 export default {
-  getAll,
+  getSalesReportList,
   get,
   login,
   update,
